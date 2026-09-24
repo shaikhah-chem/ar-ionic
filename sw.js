@@ -1,10 +1,10 @@
 /* يحفظ ملفات التجربة في الجوال بعد أول فتح، لتعمل في الفصل حتى دون إنترنت.
    الاستراتيجية: الشبكة أولًا (للحصول على آخر تحديث) ثم النسخة المحفوظة عند انقطاع الإنترنت.
    عند تعديل الملفات لاحقًا غيّري رقم الإصدار أدناه. */
-const CACHE = 'ar-ionic-v1';
+const CACHE = 'ar-ionic-v2';
 const FILES = [
   './', 'index.html', 'print.html', 'guide.html', 'css/style.css',
-  'js/app.js', 'js/cards.js', 'js/scene.js', 'js/textures.js',
+  'js/app.js', 'js/cards.js', 'js/stabilizer.js', 'js/scene.js', 'js/textures.js',
   'vendor/three/three.module.min.js', 'vendor/three/addons/renderers/CSS3DRenderer.js',
   'vendor/mindar/mindar-image-three.prod.js', 'vendor/mindar/controller-mGt1s8dJ.js', 'vendor/mindar/ui-fBadYuor.js',
   'targets/targets.mind', 'vendor/qrcode.mjs',
