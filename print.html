@@ -20,14 +20,26 @@
   @media print { body { background: #fff; } .bar { display: none; } .page { margin: 0; box-shadow: none; } }
   @media screen and (max-width: 800px) { .page { transform: scale(.45); transform-origin: top center; margin-bottom: -150mm; } }
 </style>
+  <script>
+    /* حماية المحتوى: منع النقر الأيمن والنسخ واختصارات عرض المصدر */
+    (function () {
+      var stop = function (e) { e.preventDefault(); return false; };
+      ['contextmenu', 'copy', 'cut', 'dragstart', 'selectstart'].forEach(function (t) { document.addEventListener(t, stop); });
+      document.addEventListener('keydown', function (e) {
+        var k = (e.key || '').toLowerCase(), c = e.ctrlKey || e.metaKey;
+        if (e.key === 'F12' || (c && ['u', 's', 'c', 'a'].indexOf(k) > -1) || (c && e.shiftKey && ['i', 'j', 'c', 'k'].indexOf(k) > -1) || (e.metaKey && e.altKey && ['i', 'j', 'c', 'u'].indexOf(k) > -1)) stop(e);
+      });
+    })();
+  </script>
+  <style>html,body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}img{-webkit-user-drag:none;pointer-events:none}</style>
 </head>
 <body>
   <div class="bar">
-    <p>اطبعي بالألوان على ورق A4 وبحجم 100% (بدون «ملاءمة الصفحة»). يُفضّل ورق مقوّى غير لامع.</p>
+    <p><b>تنفيذ المعلمة: أ. شيخه المطيري</b><br>اطبعي بالألوان على ورق A4 وبحجم 100% (بدون «ملاءمة الصفحة»). يُفضّل ورق مقوّى غير لامع.</p>
     <button onclick="print()">🖨️ طباعة</button>
   </div>
-  <section class="page"><div class="cut"><img src="cards/card-mgcl2.png" alt="بطاقة كلوريد المغنيسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 1: كلوريد المغنيسيوم</p></section>
-  <section class="page"><div class="cut"><img src="cards/card-al2o3.png" alt="بطاقة أكسيد الألومنيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 2: أكسيد الألومنيوم</p></section>
-  <section class="page"><div class="cut"><img src="cards/card-caoh2.png" alt="بطاقة هيدروكسيد الكالسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 3: هيدروكسيد الكالسيوم</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-mgcl2.png" alt="بطاقة كلوريد المغنيسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 1: كلوريد المغنيسيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-al2o3.png" alt="بطاقة أكسيد الألومنيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 2: أكسيد الألومنيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-caoh2.png" alt="بطاقة هيدروكسيد الكالسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 3: هيدروكسيد الكالسيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
 </body>
 </html>

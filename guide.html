@@ -34,11 +34,24 @@
   a { color: var(--accent); font-weight: 700; }
   @media print { body { background: #fff; } section { break-inside: avoid; } }
 </style>
+  <script>
+    /* حماية المحتوى: منع النقر الأيمن والنسخ واختصارات عرض المصدر */
+    (function () {
+      var stop = function (e) { e.preventDefault(); return false; };
+      ['contextmenu', 'copy', 'cut', 'dragstart', 'selectstart'].forEach(function (t) { document.addEventListener(t, stop); });
+      document.addEventListener('keydown', function (e) {
+        var k = (e.key || '').toLowerCase(), c = e.ctrlKey || e.metaKey;
+        if (e.key === 'F12' || (c && ['u', 's', 'p', 'c', 'a'].indexOf(k) > -1) || (c && e.shiftKey && ['i', 'j', 'c', 'k'].indexOf(k) > -1) || (e.metaKey && e.altKey && ['i', 'j', 'c', 'u'].indexOf(k) > -1)) stop(e);
+      });
+    })();
+  </script>
+  <style>html,body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}img{-webkit-user-drag:none;pointer-events:none}</style>
 </head>
 <body>
 <header>
   <h1>دليل تشغيل تجربة الواقع المعزز<br>«صيغ المركبات الأيونية وأسماؤها»</h1>
   <p>كيمياء 2-1 · خطوة بخطوة، دون الحاجة لأي خبرة برمجية</p>
+  <p style="margin-top:10px;font-weight:900;font-size:18px">تنفيذ المعلمة: أ. شيخه المطيري</p>
 </header>
 <main>
 
@@ -155,12 +168,7 @@
 ├── print.html              <span class="c">← صفحة طباعة البطاقات</span>
 ├── guide.html              <span class="c">← هذا الدليل</span>
 ├── sw.js                   <span class="c">← الحفظ للعمل دون إنترنت</span>
-├── css/style.css           <span class="c">← التصميم</span>
-├── js/
-│   ├── cards.js            <span class="c">← بيانات البطاقات (الأيونات، النصوص، الأسئلة)</span>
-│   ├── scene.js            <span class="c">← المشهد ثلاثي الأبعاد والحركة</span>
-│   ├── textures.js         <span class="c">← رسم النصوص والملصقات</span>
-│   └── app.js              <span class="c">← الكاميرا والمراحل والسؤال</span>
+├── lib/                    <span class="c">← كود التجربة والتصميم (مضغوط ومحمي)</span>
 ├── cards/                  <span class="c">← صور البطاقات (هي نفسها صور التعرف)</span>
 ├── targets/targets.mind    <span class="c">← بصمة البطاقات التي تتعرف عليها الكاميرا</span>
 ├── fonts/                  <span class="c">← خط Cairo</span>
@@ -169,14 +177,10 @@
 </section>
 
 <section>
-  <h2>➕ إضافة بطاقة جديدة لاحقًا</h2>
-  <p>المشروع مبني بحيث تكون كل بطاقة «مشهدًا مستقلًا» يُعرَّف في ملف <span class="k">js/cards.js</span> فقط. البطاقتان <b dir="ltr">Al₂O₃</b> و <b dir="ltr">Ca(OH)₂</b> مضافتان بهذه الطريقة وجاهزتان للاستخدام. لإضافة بطاقة رابعة:</p>
-  <ol>
-    <li>صمّمي صورة البطاقة (عمودية، غنية بالتفاصيل والألوان والنصوص، وغير متماثلة) وضعيها في مجلد <span class="k">cards</span>.</li>
-    <li>افتحي <span class="k">tools/compile-targets.html</span> من رابط موقعك، واختاري صور <b>كل</b> البطاقات بالترتيب، ثم نزّلي <span class="k">targets.mind</span> الجديد وضعيه في مجلد <span class="k">targets</span>.</li>
-    <li>في <span class="k">js/cards.js</span> انسخي كتلة بطاقة كاملة (من <span class="k">{</span> إلى <span class="k">},</span>) والصقيها في آخر القائمة، ثم عدّلي: الصيغة، الاسم، الأيونات (الرمز، الشحنة، اللون، المكان)، المراحل، والسؤال.</li>
-    <li>أضيفي اسم صورة البطاقة إلى <span class="k">sw.js</span> وغيّري رقم الإصدار، ثم ارفعي الملفات المعدّلة إلى GitHub.</li>
-  </ol>
+  <h2>🔒 حماية المصدر وإضافة بطاقات لاحقًا</h2>
+  <p>الكود المرفوع على الموقع <b>مضغوط ومحمي</b>، والنقر الأيمن واختصارات عرض المصدر معطّلة. أما الملفات الأصلية القابلة للتعديل فهي في مجلد منفصل اسمه <span class="k">ar-ionic-source</span> على حاسبك فقط.</p>
+  <div class="note warn">لا ترفعي مجلد <span class="k">ar-ionic-source</span> إلى GitHub أبدًا، واحتفظي به في مكان آمن.</div>
+  <p>لإضافة بطاقة جديدة أو تعديل التجربة: أرسلي مجلد <span class="k">ar-ionic-source</span> مع طلبك إلى Claude، وسيُعيد تجهيز النسخة المحمية لترفعيها.</p>
 </section>
 
 </main>
