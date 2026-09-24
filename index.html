@@ -26,7 +26,22 @@
     })();
   </script>
   <style>html,body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}img{-webkit-user-drag:none;pointer-events:none}</style>
-  <style>.credit{margin-top:6px;font-size:16px;font-weight:900;color:#a5f3fc;letter-spacing:.2px;padding:8px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}</style>
+  <style>
+    /* الاسم + إصلاح ظهور الصفحة كاملة على شاشة الحاسب */
+    .credit{align-self:center;margin-top:-6px;font-size:17px;font-weight:900;color:#0b1220;padding:6px 18px;border-radius:99px;background:linear-gradient(135deg,#a5f3fc,#67e8f9);box-shadow:0 6px 18px -6px #22d3ee}
+    .screen{justify-content:flex-start}
+    .screen > .intro-card, .screen > .spinner{margin-top:auto}
+    .screen > .intro-card:last-child, #loading > p{margin-bottom:auto}
+    @media (min-width: 1000px) {
+      #intro .intro-card{max-width:1000px;display:grid;grid-template-columns:1fr 380px;column-gap:40px;row-gap:16px;align-items:center}
+      #intro .intro-card > *{grid-column:1}
+      #intro #qrBox{grid-column:2;grid-row:1 / span 7;flex-direction:column;text-align:center;padding:24px}
+      #intro #qrBox #qr svg{width:260px;height:260px}
+      #intro .links{grid-column:2;grid-row:8}
+      #intro .intro-card h1{font-size:40px}
+      #intro .intro-badge, #intro .credit{justify-self:center}
+    }
+  </style>
 </head>
 <body>
 
@@ -35,6 +50,7 @@
     <div class="intro-card">
       <div class="intro-badge">كيمياء <bdi dir="ltr">2-1</bdi> · الواقع المعزز</div>
       <h1>صيغ المركبات الأيونية<br><span>وأسماؤها</span></h1>
+      <p class="credit">تنفيذ المعلمة: أ. شيخه المطيري</p>
       <p class="intro-sub">وجّهي كاميرا الجوال إلى البطاقة المطبوعة لتظهر الأيونات ثلاثية الأبعاد فوقها</p>
 
       <div class="card-list">
@@ -55,7 +71,6 @@
         <a href="print.html">🖨️ طباعة البطاقات</a>
         <a href="guide.html">📖 دليل الاستخدام</a>
       </div>
-      <p class="credit">✦ تنفيذ المعلمة: أ. شيخه المطيري ✦</p>
     </div>
   </section>
 
