@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل تشغيل تجربة الواقع المعزز</title>
+<style>
+  @font-face { font-family: Cairo; font-weight: 400; src: url(fonts/cairo-arabic-400-normal.woff2) format('woff2'); unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF; }
+  @font-face { font-family: Cairo; font-weight: 700; src: url(fonts/cairo-arabic-700-normal.woff2) format('woff2'); unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF; }
+  @font-face { font-family: Cairo; font-weight: 900; src: url(fonts/cairo-arabic-900-normal.woff2) format('woff2'); unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF; }
+  @font-face { font-family: Cairo; font-weight: 700; src: url(fonts/cairo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  @font-face { font-family: Cairo; font-weight: 900; src: url(fonts/cairo-latin-900-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  :root { --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --accent: #0e7490; --soft: #ecfeff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Cairo, sans-serif; color: var(--ink); background: #f8fafc; line-height: 1.9; font-size: 17px; }
+  header { background: linear-gradient(120deg, #0f3d56, #0e7490); color: #fff; padding: 34px 18px; }
+  header h1 { margin: 0 auto; max-width: 820px; font-size: 30px; line-height: 1.4; }
+  header p { margin: 8px auto 0; max-width: 820px; opacity: .9; font-weight: 700; }
+  main { max-width: 820px; margin: auto; padding: 18px 16px 60px; }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; margin: 16px 0; }
+  h2 { margin: 0 0 8px; font-size: 22px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+  h2 .n { background: var(--accent); color: #fff; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+  h3 { font-size: 18px; margin: 14px 0 4px; }
+  ol, ul { padding-inline-start: 24px; margin: 6px 0; }
+  li { margin: 4px 0; }
+  code, .k { direction: ltr; unicode-bidi: isolate; font-family: ui-monospace, monospace; background: #f1f5f9; border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; font-size: 15px; }
+  .note { background: var(--soft); border-right: 5px solid var(--accent); padding: 10px 14px; border-radius: 12px; margin: 10px 0; font-weight: 700; }
+  .warn { background: #fff7ed; border-right-color: #ea580c; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 16px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: right; vertical-align: top; }
+  th { background: #f1f5f9; }
+  .tree { direction: ltr; text-align: left; background: #0b1220; color: #e2e8f0; border-radius: 14px; padding: 14px 18px; font-family: ui-monospace, monospace; font-size: 14px; line-height: 1.7; white-space: pre; overflow-x: auto; }
+  .tree .c { color: #67e8f9; }
+  a { color: var(--accent); font-weight: 700; }
+  @media print { body { background: #fff; } section { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>دليل تشغيل تجربة الواقع المعزز<br>«صيغ المركبات الأيونية وأسماؤها»</h1>
+  <p>كيمياء 2-1 · خطوة بخطوة، دون الحاجة لأي خبرة برمجية</p>
+</header>
+<main>
+
+<section>
+  <h2>🔎 ما هذه التجربة؟</h2>
+  <p>تجربة <b>واقع معزز حقيقي</b> تعمل من متصفح الجوال مباشرة (بدون تثبيت تطبيق): تفتح الطالبة الرابط، توجّه الكاميرا إلى البطاقة المطبوعة، فيتعرّف البرنامج على البطاقة ويُظهر فوقها أيونات ثلاثية الأبعاد <b>تبقى ثابتة على البطاقة</b> عند تحريك الجوال أو البطاقة.</p>
+  <p>التقنيات المستخدمة مجانية ومفتوحة المصدر: <span class="k">MindAR</span> (للتعرّف على صورة البطاقة وتتبّعها) و <span class="k">Three.js</span> (للمجسمات ثلاثية الأبعاد). جميع الملفات موجودة داخل المجلد نفسه، ولا يوجد أي اشتراك أو مفتاح مدفوع.</p>
+</section>
+
+<section>
+  <h2><span class="n">1</span> ماذا أطبع؟</h2>
+  <ol>
+    <li>افتحي الملف <b>cards-print.pdf</b> (أو صفحة <a href="print.html">طباعة البطاقات</a>).</li>
+    <li>اطبعي <b>بالألوان</b> على ورق A4، واختاري الحجم <b>100%</b> أو «الحجم الفعلي» (وليس «ملاءمة الصفحة»).</li>
+    <li>قصّي البطاقة على الخط المتقطع. مقاس البطاقة 15 × 20 سم.</li>
+  </ol>
+  <div class="note">يُفضّل ورق مقوّى <b>غير لامع</b> (مطفي)، لأن اللمعان يعكس الضوء ويصعّب التعرّف على البطاقة. لا تكتبي على البطاقة ولا تغطي أجزاءً منها.</div>
+  <p>تستطيعين طباعة البطاقة 1 فقط (كلوريد المغنيسيوم) للبدء؛ البطاقتان 2 و 3 جاهزتان أيضًا.</p>
+</section>
+
+<section>
+  <h2><span class="n">2</span> رفع المشروع مجانًا للحصول على رابط https</h2>
+  <p>الكاميرا لا تعمل في المتصفح إلا من رابط آمن يبدأ بـ <span class="k">https://</span>. أسهل طريقة مجانية هي <b>GitHub Pages</b>:</p>
+  <h3>أ) إنشاء المستودع</h3>
+  <ol>
+    <li>ادخلي إلى <span class="k">github.com</span> وسجّلي الدخول (أو أنشئي حسابًا مجانيًا).</li>
+    <li>اضغطي <b>+</b> أعلى الصفحة ← <b>New repository</b>.</li>
+    <li>في خانة الاسم اكتبي: <span class="k">ar-ionic</span> ، واختاري <b>Public</b>، ثم <b>Create repository</b>.</li>
+  </ol>
+  <h3>ب) رفع الملفات</h3>
+  <ol>
+    <li>فكّي ضغط الملف <b>ar-ionic.zip</b> على حاسبك.</li>
+    <li>في صفحة المستودع اضغطي الرابط <b>uploading an existing file</b> (أو <b>Add file ← Upload files</b>).</li>
+    <li>افتحي مجلد <b>ar-ionic</b> على حاسبك، حدّدي <b>كل ما بداخله</b> (الملفات والمجلدات: index.html و css و js و vendor و …) واسحبيها إلى صفحة الرفع.
+      <div class="note warn">اسحبي <b>محتويات</b> المجلد وليس المجلد نفسه، حتى يكون الملف <span class="k">index.html</span> في أول المستودع مباشرة.</div></li>
+    <li>انتظري اكتمال رفع كل الملفات، ثم اضغطي الزر الأخضر <b>Commit changes</b>.</li>
+  </ol>
+  <h3>ج) تفعيل الرابط</h3>
+  <ol>
+    <li>في المستودع اضغطي <b>Settings</b> ← من القائمة الجانبية <b>Pages</b>.</li>
+    <li>تحت <b>Branch</b> اختاري <span class="k">main</span> والمجلد <span class="k">/ (root)</span> ← <b>Save</b>.</li>
+    <li>انتظري دقيقة أو دقيقتين ثم حدّثي الصفحة؛ سيظهر الرابط بالشكل:<br>
+      <span class="k">https://اسم-حسابك.github.io/ar-ionic/</span></li>
+  </ol>
+  <h3>بديل أسرع: Netlify Drop</h3>
+  <p>ادخلي <span class="k">app.netlify.com/drop</span>، سجّلي حسابًا مجانيًا، ثم اسحبي مجلد <b>ar-ionic</b> كاملًا إلى الصفحة؛ ستحصلين فورًا على رابط https.</p>
+</section>
+
+<section>
+  <h2><span class="n">3</span> ماذا أفتح في الجوال؟</h2>
+  <ol>
+    <li>افتحي الرابط في <b>Chrome</b> (أندرويد) أو <b>Safari</b> (آيفون). لا تفتحيه من داخل واتساب أو تيليجرام مباشرة؛ اختاري «فتح في المتصفح».</li>
+    <li>اضغطي الزر الكبير <b>«ابدئي تجربة الواقع المعزز»</b>.</li>
+    <li>سيطلب المتصفح إذن الكاميرا ← اضغطي <b>«سماح / Allow»</b>.</li>
+  </ol>
+  <div class="note">لتسهيل الوصول للطالبات: افتحي الرابط نفسه على حاسب الفصل أو جهاز العرض، وسيظهر <b>رمز QR</b> تمسحه الطالبات بجوالاتهن لفتح التجربة مباشرة.</div>
+</section>
+
+<section>
+  <h2><span class="n">4</span> أين أوجّه الكاميرا؟</h2>
+  <ul>
+    <li>ضعي البطاقة على الطاولة أو امسكيها باليد، ووجّهي الكاميرا إليها من مسافة <b>25 – 40 سم</b>.</li>
+    <li>اجعلي <b>البطاقة كاملة</b> تظهر داخل الشاشة (الإطار الأبيض المتحرك يساعدك).</li>
+    <li>في إضاءة جيدة، ودون ظل قوي أو انعكاس ضوء على البطاقة.</li>
+    <li>ثبّتي الجوال ثانية أو ثانيتين؛ سيهتز الجوال خفيفًا وتظهر رسالة «تم التعرف على البطاقة ✓».</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">5</span> ماذا يجب أن يظهر؟</h2>
+  <ol>
+    <li>تظهر فوق البطاقة منصة داكنة، ثم تنبثق كرات ثلاثية الأبعاد: <b dir="ltr">Mg²⁺</b> ذهبية في المنتصف، و <b dir="ltr">Cl⁻</b> خضراوان على الجانبين، وفوق كل كرة شحنتها.</li>
+    <li>اضغطي <b>«⚡ ابدئي التجاذب»</b>: تتحرك الأيونات نحو بعضها مع خطوط وجسيمات مضيئة توضّح التجاذب الكهروستاتيكي، وتنبض الشحنات.</li>
+    <li>تظهر لافتة <b>«وازن الشحنات»</b> وتُكتب الشحنات واحدة واحدة: <b dir="ltr">+2 + (−1) + (−1) = 0</b></li>
+    <li>تتكوّن الوحدة وتظهر الصيغة <b dir="ltr">MgCl₂</b> والمعادلة <b dir="ltr">Mg²⁺ + 2Cl⁻ → MgCl₂</b> مع حلقة متوهجة ودوران خفيف يُظهر البعد الثالث.</li>
+    <li>يظهر الاسم <b>كلوريد المغنيسيوم</b>.</li>
+    <li>يظهر السؤال: <b>كم أيون Cl⁻ نحتاج لمعادلة شحنة Mg²⁺؟</b> (1 / 2 / 3)
+      <ul>
+        <li>الإجابة 2 ← «إجابة صحيحة ✓» + المعادلة + احتفال فوق البطاقة.</li>
+        <li>إجابة خاطئة ← تلميح «تذكري أن مجموع الشحنات…» مع حساب يوضّح الخطأ (مثل <span dir="ltr">+2 + (−1) = +1 ≠ 0</span>).</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="note">إذا ابتعدت الكاميرا عن البطاقة تتوقف الحركة مؤقتًا، وتكمل من حيث توقفت عند العودة للبطاقة.</div>
+</section>
+
+<section>
+  <h2>🎤 نصائح للعرض أمام الطالبات ومديرة المدرسة</h2>
+  <ul>
+    <li><b>زر ⏯ (وضع الشرح):</b> عند تفعيله تتوقف التجربة بعد كل مرحلة، ويظهر زر «التالي» لتنتقلي عندما تنتهين من الشرح.</li>
+    <li><b>زر ↺:</b> يعيد التجربة من البداية.</li>
+    <li>وجّهي الكاميرا لبطاقة أخرى في أي وقت؛ ستنتقل التجربة تلقائيًا لمشهد تلك البطاقة.</li>
+    <li>لعرض شاشة الجوال على جهاز العرض استخدمي «عرض الشاشة / Screen Mirroring» في جوالك أو كابل مناسب.</li>
+    <li><b>بدون إنترنت في الفصل:</b> افتحي الرابط مرة واحدة واضغطي «ابدئي» وأنتِ متصلة بالإنترنت (في البيت مثلًا)؛ سيحفظ الجوال الملفات ويعمل بعدها في الفصل دون إنترنت (يعمل ذلك في أغلب الجوالات الحديثة، وجرّبيه قبل الحصة).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🛠️ حل المشكلات</h2>
+  <table>
+    <tr><th>المشكلة</th><th>الحل</th></tr>
+    <tr><td>رسالة «تعذّر تشغيل الكاميرا»</td><td>تأكدي أن الرابط يبدأ بـ https، وأنك ضغطتِ «سماح». إن رفضتِ سابقًا: من إعدادات المتصفح ← إعدادات الموقع ← الكاميرا ← سماح.</td></tr>
+    <tr><td>الإطار يبقى ولا تظهر الأيونات</td><td>أبعدي الجوال قليلًا حتى تظهر البطاقة كاملة، حسّني الإضاءة، وتأكدي أن البطاقة مطبوعة بالألوان وغير مجعدة.</td></tr>
+    <tr><td>المجسمات تهتز</td><td>ثبّتي البطاقة على الطاولة، وحسّني الإضاءة، وقرّبي الجوال قليلًا.</td></tr>
+    <tr><td>الصفحة بطيئة</td><td>أغلقي التطبيقات الأخرى، واستخدمي Chrome أو Safari بآخر تحديث.</td></tr>
+    <tr><td>عدّلت ملفًا ولم يظهر التعديل</td><td>غيّري رقم الإصدار في ملف <span class="k">sw.js</span> (مثلًا v1 إلى v2) ثم ارفعيه، وأعيدي فتح الصفحة مرتين.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>🧩 محتويات المجلد</h2>
+<div class="tree">ar-ionic/
+├── index.html              <span class="c">← صفحة التجربة</span>
+├── print.html              <span class="c">← صفحة طباعة البطاقات</span>
+├── guide.html              <span class="c">← هذا الدليل</span>
+├── sw.js                   <span class="c">← الحفظ للعمل دون إنترنت</span>
+├── css/style.css           <span class="c">← التصميم</span>
+├── js/
+│   ├── cards.js            <span class="c">← بيانات البطاقات (الأيونات، النصوص، الأسئلة)</span>
+│   ├── scene.js            <span class="c">← المشهد ثلاثي الأبعاد والحركة</span>
+│   ├── textures.js         <span class="c">← رسم النصوص والملصقات</span>
+│   └── app.js              <span class="c">← الكاميرا والمراحل والسؤال</span>
+├── cards/                  <span class="c">← صور البطاقات (هي نفسها صور التعرف)</span>
+├── targets/targets.mind    <span class="c">← بصمة البطاقات التي تتعرف عليها الكاميرا</span>
+├── fonts/                  <span class="c">← خط Cairo</span>
+├── vendor/                 <span class="c">← مكتبات MindAR و Three.js (مجانية)</span>
+└── tools/compile-targets.html <span class="c">← أداة تجهيز بطاقات جديدة</span></div>
+</section>
+
+<section>
+  <h2>➕ إضافة بطاقة جديدة لاحقًا</h2>
+  <p>المشروع مبني بحيث تكون كل بطاقة «مشهدًا مستقلًا» يُعرَّف في ملف <span class="k">js/cards.js</span> فقط. البطاقتان <b dir="ltr">Al₂O₃</b> و <b dir="ltr">Ca(OH)₂</b> مضافتان بهذه الطريقة وجاهزتان للاستخدام. لإضافة بطاقة رابعة:</p>
+  <ol>
+    <li>صمّمي صورة البطاقة (عمودية، غنية بالتفاصيل والألوان والنصوص، وغير متماثلة) وضعيها في مجلد <span class="k">cards</span>.</li>
+    <li>افتحي <span class="k">tools/compile-targets.html</span> من رابط موقعك، واختاري صور <b>كل</b> البطاقات بالترتيب، ثم نزّلي <span class="k">targets.mind</span> الجديد وضعيه في مجلد <span class="k">targets</span>.</li>
+    <li>في <span class="k">js/cards.js</span> انسخي كتلة بطاقة كاملة (من <span class="k">{</span> إلى <span class="k">},</span>) والصقيها في آخر القائمة، ثم عدّلي: الصيغة، الاسم، الأيونات (الرمز، الشحنة، اللون، المكان)، المراحل، والسؤال.</li>
+    <li>أضيفي اسم صورة البطاقة إلى <span class="k">sw.js</span> وغيّري رقم الإصدار، ثم ارفعي الملفات المعدّلة إلى GitHub.</li>
+  </ol>
+</section>
+
+</main>
+</body>
+</html>

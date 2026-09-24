@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أداة تجهيز ملف البطاقات</title>
+<style>
+  @font-face { font-family: Cairo; font-weight: 700; src: url(../fonts/cairo-arabic-700-normal.woff2) format('woff2'); }
+  @font-face { font-family: Cairo; font-weight: 900; src: url(../fonts/cairo-arabic-900-normal.woff2) format('woff2'); }
+  body { font-family: Cairo, sans-serif; background: #0b1220; color: #f8fafc; margin: 0; padding: 24px 16px; }
+  main { max-width: 620px; margin: auto; display: flex; flex-direction: column; gap: 16px; }
+  h1 { font-size: 26px; margin: 0; }
+  p, li { line-height: 1.8; color: #cbd5e1; font-weight: 700; }
+  .box { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15); border-radius: 18px; padding: 16px; }
+  input[type=file] { font-family: inherit; font-size: 16px; color: #fff; }
+  button { font-family: inherit; font-weight: 900; font-size: 18px; padding: 12px 22px; border-radius: 14px; border: 0; background: #22d3ee; color: #06202a; cursor: pointer; }
+  button:disabled { opacity: .4; }
+  #list img { height: 90px; border-radius: 8px; margin: 4px; border: 2px solid #22d3ee; }
+  progress { width: 100%; height: 18px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🧩 أداة تجهيز ملف البطاقات (targets.mind)</h1>
+  <div class="box">
+    <p>تُستخدم هذه الأداة فقط عند <b>إضافة بطاقة جديدة</b> أو تعديل تصميم بطاقة:</p>
+    <ol>
+      <li>اختاري صور جميع البطاقات <b>بالترتيب نفسه</b> الموجود في ملف <code>js/cards.js</code> (1 ثم 2 ثم 3 …).</li>
+      <li>اضغطي «تجهيز» وانتظري حتى يكتمل الشريط.</li>
+      <li>نزّلي الملف <code>targets.mind</code> وضعيه مكان القديم داخل مجلد <code>targets</code>.</li>
+    </ol>
+  </div>
+  <div class="box">
+    <input id="files" type="file" accept="image/*" multiple>
+    <div id="list"></div>
+  </div>
+  <button id="go" disabled>⚙️ تجهيز</button>
+  <progress id="bar" max="100" value="0"></progress>
+  <p id="msg"></p>
+</main>
+<script type="module">
+  import '../vendor/mindar/mindar-image.prod.js';
+  const files = document.getElementById('files'), go = document.getElementById('go'), bar = document.getElementById('bar'), msg = document.getElementById('msg'), list = document.getElementById('list');
+  let imgs = [];
+  files.onchange = async () => {
+    list.innerHTML = ''; imgs = [];
+    const arr = [...files.files].sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
+    for (const f of arr) {
+      const img = new Image(); img.src = URL.createObjectURL(f); await img.decode(); imgs.push(img); list.appendChild(img);
+    }
+    msg.textContent = `تم اختيار ${imgs.length} صورة (مرتبة حسب اسم الملف).`; go.disabled = !imgs.length;
+  };
+  go.onclick = async () => {
+    go.disabled = true; msg.textContent = 'جاري التجهيز… قد يستغرق دقيقة';
+    const c = new window.MINDAR.IMAGE.Compiler();
+    await c.compileImageTargets(imgs, (p) => (bar.value = p));
+    const blob = new Blob([c.exportData()]);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'targets.mind'; a.click();
+    msg.textContent = '✓ تم! نزل الملف targets.mind'; go.disabled = false;
+  };
+</script>
+</body>
+</html>
