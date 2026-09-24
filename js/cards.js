@@ -26,9 +26,9 @@ export const CARDS = [
     accent: '#22d3ee',
     intro: 'أيون مغنيسيوم موجب <b>Mg^{2+}</b> وأيونا كلوريد سالبان <b>Cl^{−}</b>',
     ions: [
-      { label: 'Mg^{2+}', sign: +1, color: MG, r: 0.06, start: [0, 0.1, 0.1], end: [0, 0.1, 0.1] },
-      { label: 'Cl^{−}', sign: -1, color: CL, r: 0.095, start: [-0.34, 0.1, 0.1], end: [-0.155, 0.1, 0.1] },
-      { label: 'Cl^{−}', sign: -1, color: CL, r: 0.095, start: [0.34, 0.1, 0.1], end: [0.155, 0.1, 0.1] },
+      { label: 'Mg^{2+}', sign: +1, color: MG, r: 0.06, start: [0, 0.1, 0.06], end: [0, 0.1, 0.06] },
+      { label: 'Cl^{−}', sign: -1, color: CL, r: 0.095, start: [-0.34, 0.1, 0.06], end: [-0.155, 0.1, 0.06] },
+      { label: 'Cl^{−}', sign: -1, color: CL, r: 0.095, start: [0.34, 0.1, 0.06], end: [0.155, 0.1, 0.06] },
     ],
     bonds: [[0, 1], [0, 2]], // أزواج التجاذب (موجب ↔ سالب)
     stages: [
@@ -63,11 +63,11 @@ export const CARDS = [
     accent: '#a78bfa',
     intro: 'أيونا ألومنيوم <b>Al^{3+}</b> وثلاثة أيونات أكسيد <b>O^{2−}</b>',
     ions: [
-      { label: 'Al^{3+}', sign: +1, color: AL, r: 0.05, start: [-0.17, 0.24, 0.1], end: [-0.13, 0.1, 0.1] },
-      { label: 'Al^{3+}', sign: +1, color: AL, r: 0.05, start: [0.17, 0.24, 0.1], end: [0.13, 0.1, 0.1] },
-      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [-0.34, -0.02, 0.1], end: [-0.26, 0.1, 0.1] },
-      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [0, -0.06, 0.1], end: [0, 0.1, 0.1] },
-      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [0.34, -0.02, 0.1], end: [0.26, 0.1, 0.1] },
+      { label: 'Al^{3+}', sign: +1, color: AL, r: 0.05, start: [-0.17, 0.24, 0.06], end: [-0.13, 0.1, 0.06] },
+      { label: 'Al^{3+}', sign: +1, color: AL, r: 0.05, start: [0.17, 0.24, 0.06], end: [0.13, 0.1, 0.06] },
+      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [-0.34, -0.02, 0.06], end: [-0.26, 0.1, 0.06] },
+      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [0, -0.06, 0.06], end: [0, 0.1, 0.06] },
+      { label: 'O^{2−}', sign: -1, color: O, r: 0.08, start: [0.34, -0.02, 0.06], end: [0.26, 0.1, 0.06] },
     ],
     bonds: [[0, 2], [0, 3], [1, 3], [1, 4]],
     stages: [
@@ -103,14 +103,14 @@ export const CARDS = [
     accent: '#fb923c',
     intro: 'أيون كالسيوم <b>Ca^{2+}</b> ومجموعتا هيدروكسيد <b>OH^{−}</b>',
     ions: [
-      { label: 'Ca^{2+}', sign: +1, color: CA, r: 0.07, start: [0, 0.1, 0.1], end: [0, 0.1, 0.1] },
+      { label: 'Ca^{2+}', sign: +1, color: CA, r: 0.07, start: [0, 0.1, 0.06], end: [0, 0.1, 0.06] },
       { // أيون متعدد الذرات: ذرتان داخل مجموعة واحدة
-        label: 'OH^{−}', sign: -1, color: O, r: 0.075, start: [-0.3, 0.1, 0.1], end: [-0.145, 0.1, 0.1],
+        label: 'OH^{−}', sign: -1, color: O, r: 0.075, start: [-0.3, 0.1, 0.06], end: [-0.145, 0.1, 0.06],
         atoms: [{ el: 'O', color: O, r: 0.075, off: [0, 0, 0] }, { el: 'H', color: H, r: 0.042, off: [-0.095, 0, 0] }],
         group: true,
       },
       {
-        label: 'OH^{−}', sign: -1, color: O, r: 0.075, start: [0.3, 0.1, 0.1], end: [0.145, 0.1, 0.1],
+        label: 'OH^{−}', sign: -1, color: O, r: 0.075, start: [0.3, 0.1, 0.06], end: [0.145, 0.1, 0.06],
         atoms: [{ el: 'O', color: O, r: 0.075, off: [0, 0, 0] }, { el: 'H', color: H, r: 0.042, off: [0.095, 0, 0] }],
         group: true,
       },

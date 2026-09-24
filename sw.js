@@ -1,7 +1,7 @@
 /* يحفظ ملفات التجربة في الجوال بعد أول فتح، لتعمل في الفصل حتى دون إنترنت.
    الاستراتيجية: الشبكة أولًا (للحصول على آخر تحديث) ثم النسخة المحفوظة عند انقطاع الإنترنت.
-   عند تعديل الملفات لاحقًا غيّري رقم الإصدار أدناه. */
-const CACHE = 'ar-ionic-v2';
+   عند تعديل الملفات لاحقًا غيّري رقم الإصدار أدناه، وكذلك ?v= في index.html و js/app.js و js/scene.js */
+const CACHE = 'ar-ionic-v4';
 const FILES = [
   './', 'index.html', 'print.html', 'guide.html', 'css/style.css',
   'js/app.js', 'js/cards.js', 'js/stabilizer.js', 'js/scene.js', 'js/textures.js',
@@ -22,7 +22,7 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    fetch(e.request).then((res) => {
+    fetch(e.request, { cache: 'no-cache' }).then((res) => { // يتحقق دائمًا من وجود نسخة أحدث على الموقع
       if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(e.request, copy)); }
       return res;
     }).catch(() => caches.match(e.request, { ignoreSearch: true }))

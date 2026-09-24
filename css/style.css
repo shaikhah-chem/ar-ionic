@@ -140,3 +140,29 @@ sup, sub { font-size: .62em; line-height: 0; }
 .qr { display: flex; align-items: center; gap: 16px; background: #fff; color: #0f172a; border-radius: 20px; padding: 14px; text-align: right; }
 .qr #qr svg { display: block; width: 150px; height: 150px; }
 .qr p { font-size: 17px; font-weight: 900; line-height: 1.7; }
+
+/* ===== لوحة مدمجة لا تغطي الأيونات ===== */
+.panel { padding: 12px 14px; gap: 10px; }
+.q-text { font-size: 18px; line-height: 1.6; }
+.opt { min-height: 54px; font-size: 22px; }
+.opt.small { font-size: 14.5px; }
+.quiz.solved .q-text, .quiz.solved .options { display: none; }
+.q-result { padding: 8px 12px; }
+.q-result .hint { font-size: 15px; }
+.q-result .calc { font-size: 18px; margin-top: 2px; }
+.ok-row { display: flex; align-items: center; gap: 10px; text-align: right; }
+.ok-txt { flex: 1; }
+.ok-row .big { font-size: 18px; }
+.ok-row .eq { font-size: 20px; margin: 2px 0 0; text-align: center; }
+.again { flex: none; width: 52px; height: 52px; border-radius: 16px; font-size: 24px; font-weight: 900; color: var(--ink); background: rgba(255,255,255,.12); border: 1px solid var(--line); }
+.collapse { position: absolute; top: -18px; left: 16px; min-width: 40px; height: 34px; padding: 0 12px; border-radius: 12px; font-size: 16px; font-weight: 900; color: var(--ink); background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.panel.min { background: transparent; border-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; min-height: 20px; padding: 0; }
+.panel.min > *:not(.collapse) { display: none !important; }
+.panel.min .collapse { position: static; align-self: flex-start; height: 44px; }
+
+/* ===== السؤال أصغر ما يمكن حتى تبقى الأيونات ظاهرة ===== */
+.quiz { gap: 8px; }
+.q-text { font-size: 16px; line-height: 1.5; }
+.opt { min-height: 48px; font-size: 20px; border-radius: 14px; }
+.opt.small { font-size: 13.5px; line-height: 1.25; }
+.options { gap: 8px; }

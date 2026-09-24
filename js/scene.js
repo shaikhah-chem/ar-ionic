@@ -3,7 +3,7 @@
    كل ما يظهر فوق البطاقة يُحسب من الزمن t (يتوقف عند اختفاء البطاقة)
    ===================================================================== */
 import * as THREE from 'three';
-import { ionLabelTexture, bannerTexture, glowTexture } from './textures.js';
+import { ionLabelTexture, bannerTexture, glowTexture } from './textures.js?v=4';
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
@@ -119,13 +119,13 @@ export class CardScene {
     });
 
     // هالة التكوّن + حلقة
-    this.halo = glowSprite(c.accent, 0.75, 0); this.halo.position.set(0, 0.1, 0.1); this.halo.renderOrder = 0; this.root.add(this.halo);
+    this.halo = glowSprite(c.accent, 0.75, 0); this.halo.position.set(0, 0.1, 0.06); this.halo.renderOrder = 0; this.root.add(this.halo);
     this.ring = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.006, 12, 120),
       new THREE.MeshBasicMaterial({ color: c.accent, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
     this.ring.position.set(0, 0.1, 0.02); this.root.add(this.ring);
 
     // اللافتات
-    this.topBanner = spriteFrom(this.balanceTex(0), 0.22, 40); this.topBanner.position.set(0, 0.4, 0.18);
+    this.topBanner = spriteFrom(this.balanceTex(0), 0.22, 40); this.topBanner.position.set(0, 0.4, 0.1);
     this.root.add(this.topBanner);
     const br = this.stageOf('brackets');
     if (br) {
@@ -135,20 +135,20 @@ export class CardScene {
         { text: br.lines[1], size: 60, weight: 700 },
         { chem: true, text: br.compare, size: 74 },
       ], { border: '#f59e0b', width: 1200 }), 0.3, 41);
-      this.brBanner.position.set(0, 0.43, 0.18); this.root.add(this.brBanner);
+      this.brBanner.position.set(0, 0.43, 0.1); this.root.add(this.brBanner);
     }
     const fs = this.stageOf('formula');
     this.formulaBanner = spriteFrom(bannerTexture([
       { chem: true, text: c.formula, size: 190, color: '#0f172a' },
       { chem: true, text: fs.equation, size: 78, color: '#334155' },
     ], { border: c.accent, width: 1300 }), 0.21, 42);
-    this.formulaBanner.position.set(0, -0.14, 0.18); this.root.add(this.formulaBanner);
+    this.formulaBanner.position.set(0, -0.14, 0.1); this.root.add(this.formulaBanner);
     this.nameBanner = spriteFrom(bannerTexture([{ text: c.nameAr, size: 110, color: '#ffffff' }],
       { border: '#ffffff', bg: 'rgba(15,23,42,0.92)', width: 1200 }), 0.095, 43);
-    this.nameBanner.position.set(0, -0.33, 0.18); this.root.add(this.nameBanner);
+    this.nameBanner.position.set(0, -0.33, 0.1); this.root.add(this.nameBanner);
 
     this.fbBanner = spriteFrom(bannerTexture([{ text: ' ', size: 60 }]), 0.2, 50);
-    this.fbBanner.position.set(0, 0.4, 0.2); this.root.add(this.fbBanner);
+    this.fbBanner.position.set(0, 0.4, 0.12); this.root.add(this.fbBanner);
 
     // جسيمات الاحتفال
     this.sparks = [];
@@ -250,7 +250,7 @@ export class CardScene {
 
     // دوران خفيف بعد التكوّن لإظهار البعد الثالث
     this.ionsBox.rotation.y = Math.sin(time * 0.7) * 0.35 * formed;
-    this.ionsBox.position.z = 0.03 * formed;
+    this.ionsBox.position.z = 0.015 * formed;
     this.halo.material.opacity = 0.55 * formed * (0.8 + 0.2 * Math.sin(time * 2));
     this.halo.scale.setScalar(0.75 + 0.07 * Math.sin(time * 2));
     this.ring.material.opacity = 0.9 * formed; this.ring.rotation.z = time * 0.5;
@@ -282,7 +282,7 @@ export class CardScene {
     if (this.celebrateT >= 0) {
       this.celebrateT += dt; const ct = this.celebrateT;
       for (const s of this.sparks) {
-        s.s.position.set(0, 0.1, 0.15).addScaledVector(s.v, Math.min(ct, 1.6));
+        s.s.position.set(0, 0.1, 0.08).addScaledVector(s.v, Math.min(ct, 1.6));
         s.s.position.z -= 0.1 * ct * ct;
         s.s.material.opacity = clamp(1 - ct / 1.8);
       }

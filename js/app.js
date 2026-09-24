@@ -4,8 +4,9 @@
    ===================================================================== */
 import * as THREE from 'three';
 import { MindARThree } from '../vendor/mindar/mindar-image-three.prod.js';
-import { CARDS, chemHTML } from './cards.js';
-import { CardScene } from './scene.js';
+import { CARDS, chemHTML } from './cards.js?v=4';
+import { CardScene } from './scene.js?v=4';
+import { Stabilizer } from './stabilizer.js?v=4';
 
 const $ = (id) => document.getElementById(id);
 const ui = {
@@ -15,7 +16,7 @@ const ui = {
   qResult: $('qResult'), step: $('stepBtn'), reset: $('resetBtn'), toast: $('toast'),
 };
 
-let mind, scenes = [], states = [], active = -1, stepMode = false, everFound = false;
+let mind, scenes = [], stabs = [], states = [], active = -1, stepMode = false, everFound = false;
 const visible = CARDS.map(() => false);
 
 const newState = () => ({ t: 0, playing: false, waiting: false, holdAt: Infinity, quiz: false, solved: false, stageIdx: -2 });
@@ -30,6 +31,11 @@ ui.step.addEventListener('click', () => {
   if (st && st.playing && stepMode) st.holdAt = nextBoundary(active, st.t);
 });
 ui.reset.addEventListener('click', () => { if (active >= 0) resetCard(active); });
+// زر طي اللوحة السفلية لرؤية المشهد كاملًا
+$('collapseBtn').addEventListener('click', () => {
+  const m = ui.panel.classList.toggle('min');
+  $('collapseBtn').textContent = m ? '▴ إظهار اللوحة' : '▾';
+});
 
 $('startBtn').addEventListener('click', start);
 
@@ -56,8 +62,8 @@ async function start() {
       imageTargetSrc: 'targets/targets.mind',
       maxTrack: 1,
       uiLoading: 'no', uiScanning: 'no', uiError: 'no',
-      filterMinCF: 0.0001, filterBeta: 10,     // تنعيم الحركة وتقليل الارتجاف
-      warmupTolerance: 3, missTolerance: 8,
+      filterMinCF: 0.0001, filterBeta: 10,     // تنعيم أولي من MindAR (والتنعيم الأساسي في stabilizer.js)
+      warmupTolerance: 3, missTolerance: 10,
     });
     const { renderer, scene, camera } = mind;
     renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -68,7 +74,8 @@ async function start() {
 
     CARDS.forEach((card, i) => {
       const anchor = mind.addAnchor(i);
-      scenes[i] = new CardScene(card, anchor.group);
+      stabs[i] = new Stabilizer(anchor.group, scene);       // تنعيم حركة البطاقة
+      scenes[i] = new CardScene(card, stabs[i].holder);
       states[i] = newState();
       anchor.onTargetFound = () => onFound(i);
       anchor.onTargetLost = () => onLost(i);
@@ -79,6 +86,7 @@ async function start() {
     const clock = new THREE.Clock();
     renderer.setAnimationLoop(() => {
       const dt = Math.min(clock.getDelta(), 0.1), time = clock.elapsedTime;
+      stabs.forEach((s) => s.update(dt));
       scenes.forEach((sc, i) => { advance(i, dt); sc.update(states[i].t, dt, time, visible[i]); });
       renderer.render(scene, camera);
     });
@@ -196,7 +204,7 @@ function renderQuiz() {
     b.addEventListener('click', () => answer(k, b));
     ui.qOptions.appendChild(b);
   });
-  ui.qResult.className = 'q-result hidden'; ui.qResult.innerHTML = '';
+  ui.qResult.className = 'q-result hidden'; ui.qResult.innerHTML = ''; ui.quiz.classList.remove('solved');
   if (st.solved) answer(q.correct, ui.qOptions.children[q.correct], true);
 }
 function showQuiz() { refreshPanel(); if (navigator.vibrate) navigator.vibrate(30); }
@@ -208,11 +216,12 @@ function answer(k, btn, silent = false) {
     states[active].solved = true;
     btn.classList.add('right');
     [...ui.qOptions.children].forEach((b) => (b.disabled = true));
+    ui.quiz.classList.add('solved'); // نخفي السؤال والخيارات لتظهر الأيونات كاملة
     ui.qResult.className = 'q-result ok';
-    ui.qResult.innerHTML = `<div class="big">${q.success}</div>
-      <span class="eq">${chemHTML(q.successEquation)}</span>
-      <span class="name">${chemHTML(c.formula)} = ${c.nameAr}</span>
-      <button class="btn-ghost" id="againBtn">↺ إعادة التجربة</button>`;
+    ui.qResult.innerHTML = `<div class="ok-row">
+        <div class="ok-txt"><div class="big">${q.success} · ${c.nameAr}</div><span class="eq">${chemHTML(q.successEquation)}</span></div>
+        <button class="again" id="againBtn" title="إعادة التجربة">↺</button>
+      </div>`;
     $('againBtn').addEventListener('click', () => resetCard(active));
     if (!silent) { sc.showFeedback(true); if (navigator.vibrate) navigator.vibrate([30, 60, 30]); }
   } else {
