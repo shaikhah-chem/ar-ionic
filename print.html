@@ -13,7 +13,7 @@
   .bar { position: sticky; top: 0; background: #0b1220; color: #fff; padding: 14px 18px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; z-index: 2; }
   .bar p { font-weight: 700; font-size: 15px; line-height: 1.6; }
   .bar button { font-family: inherit; font-weight: 900; font-size: 17px; padding: 10px 22px; border-radius: 14px; border: 0; background: #22d3ee; color: #06202a; cursor: pointer; }
-  .page { width: 210mm; height: 297mm; margin: 16px auto; background: #fff; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6mm; page-break-after: always; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+  .page { width: 210mm; height: 297mm; position: relative; margin: 16px auto; background: #fff; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6mm; page-break-after: always; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
   .cut { position: relative; padding: 4mm; border: 0.3mm dashed #94a3b8; }
   .cut img { display: block; width: 150mm; height: 200mm; }
   .tip { font-size: 11pt; font-weight: 700; color: #475569; }
@@ -35,11 +35,12 @@
 </head>
 <body>
   <div class="bar">
-    <p><b>تنفيذ المعلمة: أ. شيخه المطيري</b><br>اطبعي بالألوان على ورق A4 وبحجم 100% (بدون «ملاءمة الصفحة»). يُفضّل ورق مقوّى غير لامع.</p>
+    <p>اطبعي بالألوان على ورق A4 وبحجم 100% (بدون «ملاءمة الصفحة»). يُفضّل ورق مقوّى غير لامع.</p>
     <button onclick="print()">🖨️ طباعة</button>
   </div>
-  <section class="page"><div class="cut"><img src="cards/card-mgcl2.png" alt="بطاقة كلوريد المغنيسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 1: كلوريد المغنيسيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
-  <section class="page"><div class="cut"><img src="cards/card-al2o3.png" alt="بطاقة أكسيد الألومنيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 2: أكسيد الألومنيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
-  <section class="page"><div class="cut"><img src="cards/card-caoh2.png" alt="بطاقة هيدروكسيد الكالسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 3: هيدروكسيد الكالسيوم · تنفيذ المعلمة: أ. شيخه المطيري</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-mgcl2.png" alt="بطاقة كلوريد المغنيسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 1: كلوريد المغنيسيوم</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-al2o3.png" alt="بطاقة أكسيد الألومنيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 2: أكسيد الألومنيوم</p></section>
+  <section class="page"><div class="cut"><img src="cards/card-caoh2.png" alt="بطاقة هيدروكسيد الكالسيوم"></div><p class="tip">✂ قصّي على الخط المتقطع · بطاقة 3: هيدروكسيد الكالسيوم</p></section>
+<p style="position:fixed;left:10px;bottom:6px;font-size:10px;color:#94a3b8">تنفيذ المعلمة: أ. شيخه المطيري</p>
 </body>
 </html>
