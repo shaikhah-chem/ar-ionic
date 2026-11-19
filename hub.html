@@ -28,7 +28,7 @@
   @keyframes float{50%{transform:translateY(-10px)}}
   .ion span{direction:ltr}
 
-  .big{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+  .big{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px}
   .bigcard{display:block;text-decoration:none;color:inherit;background:var(--card);border-radius:26px;padding:30px;box-shadow:0 6px 30px rgba(80,70,160,.08);border:2px solid transparent;transition:.2s}
   .bigcard:hover{transform:translateY(-4px);border-color:var(--violet)}
   .step{font-size:14px;font-weight:700;color:var(--muted)}
@@ -39,6 +39,7 @@
   .btn{display:inline-block;margin-top:16px;color:#fff;font-weight:800;font-size:19px;padding:12px 30px;border-radius:16px}
   .ar .btn{background:linear-gradient(90deg,var(--teal),var(--teal2))}
   .lab .btn{background:linear-gradient(90deg,#6a8de8,var(--violet))}
+  .team .icon{background:#fff4e0} .team .btn{background:linear-gradient(90deg,#f5a524,#f97316)}
 
   h3{font-size:24px;font-weight:800;margin:40px 0 14px}
   .small{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -69,7 +70,7 @@
 
   <header>
     <div>
-      <span class="chip">كيمياء 2-1 · ثاني ثانوي · صيغ المركبات الأيونية وأسماؤها</span>
+      <span class="chip">كيمياء <bdi dir="ltr">2-1</bdi> · ثاني ثانوي · صيغ المركبات الأيونية وأسماؤها</span>
       <h1>من الأيون إلى الصيغة</h1>
       <p class="sub">واقع معزز ومختبر تفاعلي في فصل بجهاز واحد</p>
     </div>
@@ -95,6 +96,13 @@
       <p>كوّني الصيغة الصحيحة وسمّي المركب، مع تغذية راجعة فورية وحفظ النتائج للمعلمة.</p>
       <span class="btn">ادخلي المختبر ←</span>
     </a>
+    <a class="bigcard team" href="team.html" target="_blank" rel="noopener">
+      <div class="icon">🏆</div>
+      <div class="step">الخطوة الثالثة · المنافسة والقياس</div>
+      <h2>تحدي المجموعات</h2>
+      <p>المجموعات تتناوب على الأسئلة بجهاز واحد، مع لوحة نقاط حيّة وتحليل للمهارات في النهاية.</p>
+      <span class="btn">ابدئي التحدي ←</span>
+    </a>
   </div>
 
   <h3>أدوات مساندة</h3>
@@ -111,8 +119,8 @@
     <div class="row t"><div class="num">2</div><div><b>تهيئة بالواقع المعزز</b><br><span>بطاقة MgCl₂: لماذا يحتاج أيون المغنيسيوم إلى أيوني كلوريد؟</span></div><div class="min">7 د</div></div>
     <div class="row t"><div class="num">3</div><div><b>استكشاف</b><br><span>المجموعات تتنبأ بصيغتي Al₂O₃ و Ca(OH)₂ ثم تتحقق بالنموذج</span></div><div class="min">8 د</div></div>
     <div class="row"><div class="num">4</div><div><b>بناء الخوارزمية</b><br><span>كل مجموعة تكتب خطوات كتابة الصيغة بلغتها وتعرضها</span></div><div class="min">8 د</div></div>
-    <div class="row"><div class="num">5</div><div><b>تطبيق في المختبر</b><br><span>ممثلة كل مجموعة تحل جولة على جهاز المعلمة بالتناوب</span></div><div class="min">12 د</div></div>
-    <div class="row"><div class="num">6</div><div><b>تحليل البيانات</b><br><span>قراءة نتائج الفصل وتحديد الخطأ الأكثر شيوعًا</span></div><div class="min">5 د</div></div>
+    <div class="row"><div class="num">5</div><div><b>تطبيق: المختبر ثم تحدي المجموعات</b><br><span>عرض سريع للمختبر، ثم المجموعات تتنافس في التحدي بالتناوب على جهاز المعلمة</span></div><div class="min">12 د</div></div>
+    <div class="row"><div class="num">6</div><div><b>تحليل البيانات</b><br><span>قراءة شاشة نتائج التحدي وتحديد المهارة الأكثر حاجة للمراجعة</span></div><div class="min">5 د</div></div>
     <div class="row"><div class="num">7</div><div><b>تقويم بعدي</b><br><span>اختبار مكافئ للقبلي لقياس الأثر</span></div><div class="min">5 د</div></div>
   </div>
 
