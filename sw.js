@@ -1,7 +1,7 @@
 /* يحفظ ملفات التجربة في الجوال بعد أول فتح، لتعمل في الفصل حتى دون إنترنت.
    الاستراتيجية: الشبكة أولًا (للحصول على آخر تحديث) ثم النسخة المحفوظة عند انقطاع الإنترنت.
    عند تعديل الملفات لاحقًا غيّري رقم الإصدار أدناه، وكذلك ?v= في index.html */
-const CACHE = 'ar-ionic-v5';
+const CACHE = 'ar-ionic-v6';
 const FILES = [
   './', 'index.html', 'print.html', 'guide.html', 'lib/style.min.css', 'lib/app.min.js',
   'vendor/three/three.module.min.js', 'vendor/three/addons/renderers/CSS3DRenderer.js',
