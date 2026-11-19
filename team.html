@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحدي المجموعات · المركبات الأيونية</title>
+<style>
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-arabic-400-normal.woff2") format("woff2");font-weight:400;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-arabic-700-normal.woff2") format("woff2");font-weight:700;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-arabic-900-normal.woff2") format("woff2");font-weight:900;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-latin-400-normal.woff2") format("woff2");font-weight:400;unicode-range:U+0000-00FF,U+2000-206F,U+2070-209F,U+2190-21FF,U+2212}
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-latin-700-normal.woff2") format("woff2");font-weight:700;unicode-range:U+0000-00FF,U+2000-206F,U+2070-209F,U+2190-21FF,U+2212}
+  @font-face{font-family:"Cairo";src:url("fonts/cairo-latin-900-normal.woff2") format("woff2");font-weight:900;unicode-range:U+0000-00FF,U+2000-206F,U+2070-209F,U+2190-21FF,U+2212}
+  :root{--ink:#2b2a4c;--muted:#6b6a8a;--bg:#f6f5fc;--card:#fff;--violet:#7b6cf0;--teal:#2fb3a0;--soft-v:#efeafd;--soft-t:#e3f6f2;--line:#e6e3f5;--ok:#16a34a;--bad:#dc2626;--gold:#f5a524}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Cairo",Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6}
+  button{font-family:inherit;cursor:pointer;border:0}
+  .hidden{display:none!important}
+  .f{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:Arial,"Cairo",sans-serif;font-weight:700}
+  .f sub{font-size:.65em;vertical-align:-.25em}.f sup{font-size:.62em;vertical-align:.55em}
+  .wrap{max-width:1250px;margin:0 auto;padding:22px}
+  .card{background:var(--card);border-radius:24px;box-shadow:0 6px 30px rgba(80,70,160,.08);padding:26px}
+  .btn{background:linear-gradient(90deg,#6a8de8,var(--violet));color:#fff;font-weight:900;font-size:22px;padding:14px 34px;border-radius:16px}
+  .btn.teal{background:linear-gradient(90deg,var(--teal),#4fcfb8)}
+  .btn.ghost{background:var(--soft-v);color:var(--violet);font-size:16px;padding:9px 18px}
+  .chip{display:inline-block;background:var(--soft-v);color:var(--violet);font-weight:700;font-size:15px;padding:5px 15px;border-radius:999px}
+
+  /* setup */
+  #setup{max-width:760px;margin:40px auto;text-align:center}
+  #setup h1{font-size:46px;font-weight:900;margin:12px 0 4px;background:linear-gradient(90deg,var(--violet),#5a8be8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #setup p.sub{color:var(--muted);font-size:19px;margin-bottom:24px}
+  .row{display:flex;gap:16px;justify-content:center;align-items:center;margin:16px 0;flex-wrap:wrap}
+  .stepper{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:8px 14px}
+  .stepper b{font-size:30px;min-width:46px;text-align:center}
+  .stepper button{width:44px;height:44px;border-radius:12px;background:var(--card);font-size:24px;font-weight:900;color:var(--violet);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .rowlabel{font-weight:700;font-size:19px;min-width:160px;text-align:right}
+  .resume{margin-top:14px}
+
+  /* game */
+  #game{display:grid;grid-template-columns:1fr 330px;gap:20px}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+  .turn{display:flex;align-items:center;gap:14px}
+  .turn .who{font-size:34px;font-weight:900;color:#fff;padding:6px 26px;border-radius:18px}
+  .qnum{font-weight:700;color:var(--muted);font-size:18px}
+  .skill{font-weight:700;color:var(--teal);background:var(--soft-t);padding:4px 14px;border-radius:999px;font-size:15px}
+  .q{font-size:34px;font-weight:900;margin:18px 0 22px;line-height:1.6}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .opt{background:var(--bg);border:3px solid var(--line);border-radius:20px;padding:20px 18px;font-size:30px;font-weight:700;color:var(--ink);text-align:center;transition:.15s;min-height:92px}
+  .opt:hover:not(:disabled){border-color:var(--violet);transform:translateY(-2px)}
+  .opt .L{display:inline-block;width:40px;height:40px;line-height:40px;border-radius:12px;background:var(--card);color:var(--violet);font-size:20px;margin-left:10px;vertical-align:middle}
+  .opt.right{background:#dcfce7;border-color:var(--ok)}
+  .opt.wrong{background:#fee2e2;border-color:var(--bad)}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:18px;border-radius:18px;padding:16px 20px;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .fb.ok{background:#dcfce7;color:#14532d}.fb.bad{background:#fee2e2;color:#7f1d1d}
+  .fb .exp{font-weight:400;font-size:19px;display:block;margin-top:4px;color:var(--ink)}
+  .timer{font-size:26px;font-weight:900;color:var(--violet);background:var(--soft-v);border-radius:14px;padding:4px 16px;min-width:84px;text-align:center}
+  .timer.low{color:var(--bad);background:#fee2e2}
+  .tools{display:flex;gap:8px;flex-wrap:wrap}
+
+  /* board */
+  .board h3{font-size:22px;font-weight:900;margin-bottom:10px}
+  .g{display:grid;grid-template-columns:96px 1fr 42px;align-items:center;gap:10px;padding:8px 6px;border-radius:14px;margin-bottom:6px}
+  .g.cur{background:var(--soft-v);outline:2px solid var(--violet)}
+  .g .nm{font-weight:900;font-size:17px;display:flex;align-items:center;gap:6px}
+  .g .dot{width:14px;height:14px;border-radius:50%}
+  .g .bar{height:16px;background:var(--line);border-radius:10px;overflow:hidden}
+  .g .bar i{display:block;height:100%;border-radius:10px;transition:width .5s}
+  .g .pt{font-weight:900;font-size:20px;text-align:left}
+
+  /* results */
+  #results h1{font-size:40px;font-weight:900;text-align:center;margin-bottom:6px}
+  #results .sub{text-align:center;color:var(--muted);margin-bottom:18px}
+  .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+  .pod{text-align:center;padding:18px;border-radius:20px;background:var(--card);box-shadow:0 4px 18px rgba(80,70,160,.08)}
+  .pod .m{font-size:46px}.pod b{display:block;font-size:24px}.pod span{color:var(--muted);font-weight:700}
+  table{width:100%;border-collapse:collapse;font-size:18px}
+  th,td{padding:10px;border-bottom:1px solid var(--line);text-align:center}
+  th{background:var(--soft-v);font-weight:900}
+  .pct{font-weight:900}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .hard{background:#fff7ed;border:2px solid #fdba74;border-radius:16px;padding:14px 18px;font-size:19px;font-weight:700;margin-top:16px}
+  .credit{position:fixed;bottom:8px;left:12px;font-size:12px;color:#9a99b5}
+  @media (max-width:950px){#game{grid-template-columns:1fr}.opts{grid-template-columns:1fr}.grid2,.podium{grid-template-columns:1fr}.q{font-size:26px}.opt{font-size:24px}}
+  @media print{body{background:#fff}.noprint{display:none!important}.card{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- إعداد -->
+  <section id="setup" class="card">
+    <span class="chip">كيمياء <bdi dir="ltr">2-1</bdi> · صيغ المركبات الأيونية وأسماؤها</span>
+    <h1>تحدي المجموعات</h1>
+    <p class="sub">جهاز واحد · المجموعات تتناوب على الأسئلة · لوحة نقاط حيّة</p>
+    <div class="row"><span class="rowlabel">عدد المجموعات</span>
+      <div class="stepper"><button data-k="groups" data-d="-1">−</button><b id="vGroups">7</b><button data-k="groups" data-d="1">+</button></div></div>
+    <div class="row"><span class="rowlabel">أسئلة لكل مجموعة</span>
+      <div class="stepper"><button data-k="rounds" data-d="-1">−</button><b id="vRounds">2</b><button data-k="rounds" data-d="1">+</button></div></div>
+    <div class="row"><span class="rowlabel">وقت النقاش (ثانية)</span>
+      <div class="stepper"><button data-k="time" data-d="-15">−</button><b id="vTime">30</b><button data-k="time" data-d="15">+</button></div></div>
+    <p id="total" style="color:var(--muted);font-weight:700;margin:6px 0 18px"></p>
+    <button class="btn" id="startBtn">ابدئي التحدي ←</button>
+    <div class="resume hidden" id="resumeBox"><button class="btn ghost" id="resumeBtn">↩ متابعة التحدي السابق</button></div>
+  </section>
+
+  <!-- اللعب -->
+  <section id="game" class="hidden">
+    <div class="card">
+      <div class="top">
+        <div class="turn"><span class="who" id="who"></span><span class="qnum" id="qnum"></span></div>
+        <div class="tools noprint">
+          <span class="timer" id="timer">30</span>
+          <button class="btn ghost" id="timerBtn">⏱ ابدئي الوقت</button>
+          <button class="btn ghost" id="undoBtn" title="إلغاء آخر إجابة">↶ تراجع</button>
+          <button class="btn ghost" id="endBtn">إنهاء</button>
+        </div>
+      </div>
+      <span class="skill" id="skill"></span>
+      <div class="q" id="q"></div>
+      <div class="opts" id="opts"></div>
+      <div id="fb" class="fb hidden"></div>
+    </div>
+    <div class="card board">
+      <h3>🏆 لوحة النقاط</h3>
+      <div id="board"></div>
+    </div>
+  </section>
+
+  <!-- النتائج -->
+  <section id="results" class="hidden">
+    <div class="card">
+      <h1>🎉 نتائج تحدي المجموعات</h1>
+      <p class="sub" id="rSub"></p>
+      <div class="podium" id="podium"></div>
+      <div class="grid2">
+        <div><h3 style="margin-bottom:8px">ترتيب المجموعات</h3><table id="tGroups"></table></div>
+        <div><h3 style="margin-bottom:8px">تحليل المهارات</h3><table id="tSkills"></table><div class="hard" id="hard"></div></div>
+      </div>
+      <div class="row noprint" style="margin-top:22px">
+        <button class="btn teal" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
+        <button class="btn ghost" id="againBtn">تحدٍّ جديد</button>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="credit">تنفيذ المعلمة: أ. شيخه المطيري</div>
+
+<script>
+// ===== صيغة كيميائية: الأرقام بعد الحرف أو القوس سفلية، و ^2+ علوية =====
+function F(t){return '<span class="f">'+t.replace(/\^([0-9]*[+\-])/g,(m,c)=>'<sup>'+c.replace('-','−')+'</sup>').replace(/([A-Za-z)])(\d+)/g,'$1<sub>$2</sub>')+'</span>'}
+function R(s){return s.replace(/\{([^}]+)\}/g,(m,x)=>F(x))}
+
+const SK={bin:'كتابة صيغة مركب ثنائي',cross:'الضرب التبادلي للشحنات',poly:'الأيونات متعددة الذرات',roman:'التسمية بالأرقام الرومانية',name:'تسمية المركبات الأيونية',bal:'تعادل الشحنات'};
+// أول اختيار هو الصحيح دائمًا (يُخلط عند العرض)
+const BANK=[
+ {s:'bin',q:'صيغة المركب الناتج من {K^+} و {Cl^-} هي:',o:['{KCl}','{K2Cl}','{KCl2}','{K2Cl2}'],e:'شحنة +1 تعادل شحنة −1، فالنسبة 1 : 1'},
+ {s:'bin',q:'صيغة المركب الناتج من {Ca^2+} و {O^2-} هي:',o:['{CaO}','{Ca2O}','{CaO2}','{Ca2O2}'],e:'+2 تعادل −2، فالنسبة 1 : 1 ونكتب أبسط نسبة'},
+ {s:'bin',q:'صيغة المركب الناتج من {Na^+} و {S^2-} هي:',o:['{Na2S}','{NaS}','{NaS2}','{Na2S2}'],e:'نحتاج أيوني صوديوم (+1) لمعادلة شحنة −2'},
+ {s:'bin',q:'صيغة المركب الناتج من {Mg^2+} و {F^-} هي:',o:['{MgF2}','{MgF}','{Mg2F}','{Mg2F2}'],e:'نحتاج أيوني فلوريد (−1) لمعادلة +2'},
+ {s:'cross',q:'صيغة المركب الناتج من {Al^3+} و {Cl^-} هي:',o:['{AlCl3}','{AlCl}','{Al3Cl}','{Al3Cl3}'],e:'+3 تحتاج ثلاثة أيونات −1'},
+ {s:'cross',q:'صيغة المركب الناتج من {Ca^2+} و {N^3-} هي:',o:['{Ca3N2}','{Ca2N3}','{CaN}','{Ca3N3}'],e:'الضرب التبادلي: 3 × (+2) = +6 و 2 × (−3) = −6'},
+ {s:'cross',q:'صيغة المركب الناتج من {Al^3+} و {S^2-} هي:',o:['{Al2S3}','{Al3S2}','{AlS}','{AlS3}'],e:'2 × (+3) = +6 و 3 × (−2) = −6'},
+ {s:'cross',q:'صيغة المركب الناتج من {Mg^2+} و {P^3-} هي:',o:['{Mg3P2}','{Mg2P3}','{MgP}','{Mg3P3}'],e:'3 × (+2) = +6 و 2 × (−3) = −6'},
+ {s:'poly',q:'صيغة المركب الناتج من {NH4^+} و {Cl^-} هي:',o:['{NH4Cl}','{(NH4)2Cl}','{NH4Cl2}','{NHCl4}'],e:'+1 تعادل −1، ولا نحتاج أقواسًا لأن الأمونيوم واحد'},
+ {s:'poly',q:'صيغة المركب الناتج من {Na^+} و {SO4^2-} هي:',o:['{Na2SO4}','{NaSO4}','{Na(SO4)2}','{Na2(SO4)2}'],e:'أيونا صوديوم لمعادلة −2، والكبريتات واحدة فلا أقواس'},
+ {s:'poly',q:'صيغة المركب الناتج من {Al^3+} و {OH^-} هي:',o:['{Al(OH)3}','{AlOH3}','{Al3OH}','{AlOH}'],e:'ثلاث مجموعات OH، والأقواس لأن الأيون متعدد الذرات'},
+ {s:'poly',q:'صيغة المركب الناتج من {Ca^2+} و {NO3^-} هي:',o:['{Ca(NO3)2}','{CaNO3}','{Ca2NO3}','{CaNO6}'],e:'مجموعتا نترات كاملتان داخل أقواس'},
+ {s:'roman',q:'الاسم الصحيح للمركب {FeO} هو:',o:['أكسيد الحديد (II)','أكسيد الحديد (III)','أحادي أكسيد الحديد','أكسيد الحديد'],e:'الأكسجين −2، فشحنة الحديد +2 ونكتبها (II)'},
+ {s:'roman',q:'الاسم الصحيح للمركب {CuCl2} هو:',o:['كلوريد النحاس (II)','كلوريد النحاس (I)','ثنائي كلوريد النحاس','كلوريد النحاس'],e:'أيونا كلوريد (−2) فشحنة النحاس +2'},
+ {s:'roman',q:'الاسم الصحيح للمركب {Fe2O3} هو:',o:['أكسيد الحديد (III)','أكسيد الحديد (II)','ثلاثي أكسيد الحديد','أكسيد الحديد'],e:'3 × (−2) = −6 تتوزع على حديدين، فكل حديد +3'},
+ {s:'name',q:'الاسم الصحيح للمركب {NaCl} هو:',o:['كلوريد الصوديوم','صوديوم الكلور','كلورات الصوديوم','صوديوم كلوريد'],e:'نبدأ باسم الأيون السالب ثم الموجب'},
+ {s:'name',q:'الاسم الصحيح للمركب {K2SO4} هو:',o:['كبريتات البوتاسيوم','كبريتيد البوتاسيوم','كبريتيت البوتاسيوم','ثنائي بوتاسيوم الكبريتات'],e:'{SO4^2-} اسمه كبريتات'},
+ {s:'name',q:'الاسم الصحيح للمركب {CaCO3} هو:',o:['كربونات الكالسيوم','كربيد الكالسيوم','أكسيد الكالسيوم','كربونيت الكالسيوم'],e:'{CO3^2-} اسمه كربونات'},
+ {s:'bal',q:'في {MgCl2}: مجموع الشحنات (+2) + 2 × (−1) يساوي:',o:['صفرًا','+1','−1','+2'],e:'المركب الأيوني متعادل كهربائيًا دائمًا'},
+ {s:'bal',q:'كم أيون {Cl^-} نحتاج لمعادلة أيون {Fe^3+} واحد؟',o:['3','1','2','6'],e:'+3 تحتاج ثلاث شحنات −1'},
+ {s:'bal',q:'لماذا نكتب الأقواس في {Ca(OH)2}؟',o:['لأن {OH^-} أيون متعدد الذرات ونحتاج منه أكثر من واحد','لأن الكالسيوم فلز','لتوضيح أن الأكسجين سالب','لأن عدد ذرات الهيدروجين 2 فقط'],e:'الرقم 2 يضرب المجموعة كاملة'},
+];
+const COLORS=['#7b6cf0','#2fb3a0','#f5a524','#e85d75','#3b82f6','#10b981','#a855f7','#f97316','#0ea5e9','#84cc16'];
+const KEY='team-challenge-ionic-v1';
+const $=id=>document.getElementById(id);
+let cfg={groups:7,rounds:2,time:30}, st=null, tmr=null, left=0;
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function drawSetup(){$('vGroups').textContent=cfg.groups;$('vRounds').textContent=cfg.rounds;$('vTime').textContent=cfg.time;
+ const n=cfg.groups*cfg.rounds;$('total').textContent=`المجموع: ${n} سؤالًا · حوالي ${Math.round(n*(cfg.time+25)/60)} دقيقة`;}
+document.querySelectorAll('.stepper button').forEach(b=>b.onclick=()=>{const k=b.dataset.k,d=+b.dataset.d;
+ const lim={groups:[2,10],rounds:[1,3],time:[0,120]}[k];cfg[k]=Math.min(lim[1],Math.max(lim[0],cfg[k]+d));drawSetup();});
+
+function pickQuestions(n){ // توزيع متوازن بين المهارات
+ const by={};BANK.forEach((q,i)=>(by[q.s]=by[q.s]||[]).push(i));Object.values(by).forEach(shuffle);
+ const keys=shuffle(Object.keys(by));const out=[];let k=0;
+ while(out.length<n){const arr=by[keys[k%keys.length]];if(arr.length)out.push(arr.shift());k++;
+  if(Object.values(by).every(a=>!a.length)){Object.keys(by).forEach(s=>by[s]=shuffle(BANK.map((q,i)=>i).filter(i=>BANK[i].s===s)));}}
+ return out.map(i=>({i,order:shuffle([0,1,2,3])}));
+}
+
+function start(){
+ st={cfg:{...cfg},qs:pickQuestions(cfg.groups*cfg.rounds),cur:0,scores:Array(cfg.groups).fill(0),log:[],answered:false};
+ save();show('game');renderQ();
+}
+function show(id){['setup','game','results'].forEach(s=>$(s).classList.toggle('hidden',s!==id))}
+function groupOf(k){return k%st.cfg.groups}
+
+function renderBoard(){
+ const max=Math.max(10,...st.scores);const g=groupOf(st.cur);
+ $('board').innerHTML=st.scores.map((p,i)=>`<div class="g ${i===g&&st.cur<st.qs.length?'cur':''}"><span class="nm"><i class="dot" style="background:${COLORS[i]}"></i>مجموعة ${i+1}</span><span class="bar"><i style="width:${p/max*100}%;background:${COLORS[i]}"></i></span><span class="pt">${p}</span></div>`).join('');
+}
+function renderQ(){
+ stopTimer();const it=st.qs[st.cur],Q=BANK[it.i],g=groupOf(st.cur);
+ $('who').textContent='دور مجموعة '+(g+1);$('who').style.background=COLORS[g];
+ $('qnum').textContent=`سؤال ${st.cur+1} من ${st.qs.length}`;
+ $('skill').textContent=SK[Q.s];$('q').innerHTML=R(Q.q);
+ const L=['أ','ب','ج','د'];
+ $('opts').innerHTML=it.order.map((o,j)=>`<button class="opt" data-o="${o}"><span class="L">${L[j]}</span>${R(Q.o[o])}</button>`).join('');
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.o,b));
+ $('fb').className='fb hidden';left=st.cfg.time;drawTimer();$('timer').classList.toggle('hidden',!st.cfg.time);$('timerBtn').classList.toggle('hidden',!st.cfg.time);
+ st.answered=false;renderBoard();
+}
+function answer(o,btn){
+ if(st.answered)return;st.answered=true;stopTimer();
+ const it=st.qs[st.cur],Q=BANK[it.i],g=groupOf(st.cur),ok=o===0;
+ if(ok)st.scores[g]+=10;
+ st.log.push({k:st.cur,g,s:Q.s,ok});
+ document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(+b.dataset.o===0)b.classList.add('right')});
+ if(!ok&&btn)btn.classList.add('wrong');
+ const last=st.cur===st.qs.length-1;
+ $('fb').className='fb '+(ok?'ok':'bad');
+ $('fb').innerHTML=`<div>${ok?'✅ إجابة صحيحة! +10 لمجموعة '+(g+1):(btn?'❌ إجابة غير صحيحة':'⏰ انتهى الوقت')}<span class="exp">💡 ${R(Q.e)}</span></div><button class="btn" id="nextBtn">${last?'عرض النتائج 🏆':'السؤال التالي ←'}</button>`;
+ $('nextBtn').onclick=next;save();renderBoard();
+}
+function next(){if(st.cur>=st.qs.length-1){finish();return}st.cur++;save();renderQ()}
+function undo(){
+ if(st.answered){const l=st.log.pop();if(l&&l.ok)st.scores[l.g]-=10;st.answered=false;save();renderQ();return}
+ if(st.cur>0){st.cur--;const l=st.log.pop();if(l&&l.ok)st.scores[l.g]-=10;save();renderQ();}
+}
+function drawTimer(){$('timer').textContent=left;$('timer').classList.toggle('low',left<=10)}
+function startTimer(){if(tmr||st.answered||!st.cfg.time)return;tmr=setInterval(()=>{left--;drawTimer();if(left<=0){stopTimer();answer(-1,null)}},1000)}
+function stopTimer(){clearInterval(tmr);tmr=null}
+
+function finish(){
+ stopTimer();st.done=true;save();show('results');
+ const n=st.cfg.groups,rank=st.scores.map((p,i)=>({i,p,c:st.log.filter(l=>l.g===i&&l.ok).length,t:st.log.filter(l=>l.g===i).length})).sort((a,b)=>b.p-a.p);
+ const tot=st.log.length,okAll=st.log.filter(l=>l.ok).length;
+ const d=new Date();
+ $('rSub').textContent=`${n} مجموعات · ${tot} سؤالًا · نسبة الإجابات الصحيحة للفصل ${tot?Math.round(okAll/tot*100):0}% · ${d.toLocaleDateString('ar-SA')}`;
+ const M=['🥇','🥈','🥉'];
+ $('podium').innerHTML=rank.slice(0,3).map((r,j)=>`<div class="pod"><div class="m">${M[j]}</div><b style="color:${COLORS[r.i]}">مجموعة ${r.i+1}</b><span>${r.p} نقطة</span></div>`).join('');
+ $('tGroups').innerHTML='<tr><th>الترتيب</th><th>المجموعة</th><th>صحيحة</th><th>النقاط</th></tr>'+rank.map((r,j)=>`<tr><td>${j+1}</td><td><b style="color:${COLORS[r.i]}">مجموعة ${r.i+1}</b></td><td>${r.c} من ${r.t}</td><td class="pct">${r.p}</td></tr>`).join('');
+ const sk=Object.keys(SK).map(s=>{const a=st.log.filter(l=>l.s===s);return{s,t:a.length,c:a.filter(l=>l.ok).length}}).filter(x=>x.t);
+ sk.forEach(x=>x.p=Math.round(x.c/x.t*100));
+ $('tSkills').innerHTML='<tr><th>المهارة</th><th>صحيحة</th><th>النسبة</th></tr>'+sk.sort((a,b)=>a.p-b.p).map(x=>`<tr><td>${SK[x.s]}</td><td>${x.c} من ${x.t}</td><td class="pct" style="color:${x.p>=70?'var(--ok)':x.p>=50?'#b45309':'var(--bad)'}">${x.p}%</td></tr>`).join('');
+ const h=sk[0];$('hard').innerHTML=h?`📌 المهارة الأكثر حاجة للمراجعة: <b>${SK[h.s]}</b> (${h.p}%)`:'';
+}
+
+$('startBtn').onclick=start;
+$('timerBtn').onclick=startTimer;
+$('undoBtn').onclick=undo;
+$('endBtn').onclick=()=>{if(st.log.length)finish()};
+$('againBtn').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}st=null;show('setup');drawSetup();$('resumeBox').classList.add('hidden')};
+$('resumeBtn').onclick=()=>{st=load();cfg={...st.cfg};if(st.answered&&!st.done){const l=st.log[st.log.length-1];if(l&&l.k===st.cur){st.log.pop();if(l.ok)st.scores[l.g]-=10}st.answered=false}if(st.done){finish()}else{show('game');renderQ()}};
+(function(){const s=load();if(s&&s.qs&&s.log&&s.log.length)$('resumeBox').classList.remove('hidden');drawSetup();})();
+</script>
+</body>
+</html>
